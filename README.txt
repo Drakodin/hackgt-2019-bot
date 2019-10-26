@@ -42,7 +42,13 @@ the server to take specific actions using User input.
 
 Since bot functionality is specifically defined, this bot can be translated using appropriate APIs to other languages
 such as Python, C++, or JavaScript. In this case, Java was preferred due to developer experience (primarily my own)
-
+__________________________________________________________________________________
+  _____       _    _ _    ____                                          _     
+ |___ /      / \  | | |  / ___|___  _ __ ___  _ __ ___   __ _ _ __   __| |___ 
+   |_ \     / _ \ | | | | |   / _ \| '_ ` _ \| '_ ` _ \ / _` | '_ \ / _` / __|
+  ___) |   / ___ \| | | | |__| (_) | | | | | | | | | | | (_| | | | | (_| \__ \
+ |____(_) /_/   \_\_|_|  \____\___/|_| |_| |_|_| |_| |_|\__,_|_| |_|\__,_|___/
+__________________________________________________________________________________                                                       
 ╔════════════════════════════════════════╗
 ║ ╦ ╦╔═╗╔═╗╦═╗  ╔═╗╔═╗╔╦╗╔╦╗╔═╗╔╗╔╔╦╗╔═╗ ║
 ║ ║ ║╚═╗║╣ ╠╦╝  ║  ║ ║║║║║║║╠═╣║║║ ║║╚═╗ ║
@@ -59,3 +65,13 @@ such as Python, C++, or JavaScript. In this case, Java was preferred due to deve
 	- Case-insensitive
 	- tests implementation of User mention
 	- Bot sends message "Hello @Username"
+_________________________________________________________________________
+  _  _       ____            _        _ _           _                 
+ | || |     / ___|___  _ __ | |_ _ __(_) |__  _   _| |_ ___  _ __ ___ 
+ | || |_   | |   / _ \| '_ \| __| '__| | '_ \| | | | __/ _ \| '__/ __|
+ |__   _|  | |__| (_) | | | | |_| |  | | |_) | |_| | || (_) | |  \__ \
+    |_|(_)  \____\___/|_| |_|\__|_|  |_|_.__/ \__,_|\__\___/|_|  |___/
+__________________________________________________________________________
+Repository Owner: Tony Tian
+Additional Contributors: Aditya Singhal, Ammar Ratnani
+                                                                      
