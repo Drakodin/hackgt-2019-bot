@@ -50,7 +50,7 @@ public class BotListener extends ListenerAdapter {
 	public void onGuildMessageReceived(GuildMessageReceivedEvent ev) {
 		// Check to make sure the composer is real
 		if (ev.getAuthor().isBot() || ev.getAuthor().isFake()) {
-			// Do nothing if he is fake
+			// Do nothing if the command was called by a bot or was fake
 			return;
 		}
 		
