@@ -13,7 +13,6 @@ public class Account {
 		this.creator = c;
 		this.username = u;
 		this.password = p;
-		
 		this.salePrice = s;
 	}
 
