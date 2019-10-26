@@ -13,8 +13,8 @@ public class LeagueOfLegendsAccount extends Account {
 	
 	@Override
 	public String toString() {
-		return String.format("%s : %s : %s : %s : %d : %.2f", 
-			super.getCreator(), super.getUsername(), super.getPassword(), this.rank,
+		return String.format("%s : %s : %s : %d : %.2f", 
+			super.getCreator(), super.getUsername(), this.rank,
 			this.level, super.getSalePrice());
 	}
 
