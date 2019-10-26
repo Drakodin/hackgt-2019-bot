@@ -48,7 +48,7 @@ such as Python, C++, or JavaScript. In this case, Java was preferred due to deve
 ║ ║ ║╚═╗║╣ ╠╦╝  ║  ║ ║║║║║║║╠═╣║║║ ║║╚═╗ ║
 ║ ╚═╝╚═╝╚═╝╩╚═  ╚═╝╚═╝╩ ╩╩ ╩╩ ╩╝╚╝═╩╝╚═╝ ║
 ╚════════════════════════════════════════╝
--> "%
+-> "%"
 
 ╔═══════════════════════════════════════════╗
 ║ ╔╦╗╔═╗╔╗ ╦ ╦╔═╗  ╔═╗╔═╗╔╦╗╔╦╗╔═╗╔╗╔╔╦╗╔═╗ ║
@@ -59,13 +59,3 @@ such as Python, C++, or JavaScript. In this case, Java was preferred due to deve
 	- Case-insensitive
 	- tests implementation of User mention
 	- Bot sends message "Hello @Username"
-
--> "!getUsers"
-	- Case-sensitive
-	- Reports String representation of list of Members of a specific guild ("server")
-	- Bot sends message containing the String representation of the list
-
--> "!getDocs"
-	- Case-sensitive
-	- Returns this documentation file
-	- Opens private message channel of User who called the command and sends this file
