@@ -1,6 +1,8 @@
 package botuser;
 
 // Data Structures
+import java.util.List;
+import java.util.LinkedList;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.Map;
@@ -26,6 +28,8 @@ public class BotListener extends ListenerAdapter {
 	
 	private static Map<String, Consumer<GuildMessageReceivedEvent>> guildMessageActions = new HashMap<>();
 	private static Map<String, Consumer<PrivateMessageReceivedEvent>> directMessageActions = new HashMap<>();
+
+    private static Map<String, List<Account>> = new HashMap<>();
 	
 	public BotListener() {
 		guildMessageActions.put("!hello", (GuildMessageReceivedEvent ev) -> 
@@ -50,50 +54,6 @@ public class BotListener extends ListenerAdapter {
 				entry.getValue().accept(ev);
 			}
 		}
-		
-		/*// Debug commands
-		if (message.equalsIgnoreCase("!hello")) {
-			ev.getChannel().sendMessage("Hello " + author.getAsMention()).queue();
-		}
-		
-		if (message.equals("!getUsers")) {
-			ev.getChannel().sendMessage(ev.getGuild().getMembers().toString()).queue();
-		}
-		
-		if (message.equals("!getDocs")) {
-			try {
-				this.directMessageUser(ev.getAuthor(), "Hi");
-				this.sendComDocs(ev.getAuthor());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		// User commands
-		if (message.startsWith("%getPerm")) {
-			String[] raw = message.split(" ");
-			if (raw[1].equals("request")) {
-				this.directMessageUser(ev.getAuthor(), "Please type %.verify in chat");
-			}
-		}
-		
-		if (message.equals("%.verify")) {
-			if (verificationQ.contains(ev.getAuthor())) {
-				ev.getChannel();
-			}
-		}
-		
-		/*
-		 * Channel-based
-		 * %buy - output formatted list of current market: [UN : Rank : Level : Price]
-		 * %help - list of all user commands
-		 * %buy [Username] - target only the matching username
-		 * %buy [Rank] - list of all Account objects with matching string Rank
-		 * %buy [level] - list of all Account objects with matching Level (String or Integer)
-		 * 
-		 * %
-		 * %sell Username : Pass : Level : Rank : Price
-		 */
 	}
 	
 	// Handler for the user sending a direct message to the bot
