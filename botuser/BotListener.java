@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Iterator;
 
 // Lambdas
 import java.util.function.Consumer;
@@ -35,6 +36,10 @@ public class BotListener extends ListenerAdapter {
 	public BotListener() {
 		guildMessageActions.put("!hello", (GuildMessageReceivedEvent ev) -> 
 			sendChannelMessage(ev.getChannel(), "Hello " + ev.getAuthor().getAsMention() + "!"));
+        
+        // Logic for handling listings
+        guildMessageActions.put("!list .*", (GuildMessageReceivedEvent ev) -> 
+            respondWithList(ev));
 		
         // Logic for creating sells
         directMessageActions.put("!sell .*", (PrivateMessageReceivedEvent pe) ->
@@ -101,13 +106,73 @@ public class BotListener extends ListenerAdapter {
                         Integer.parseInt(parts[5]));
                 } catch (NumberFormatException e) {
                     directMessageUser(pe.getAuthor(), "Invalid price or level");
+                    return;
                 } catch (IndexOutOfBoundsException e) {
                     directMessageUser(pe.getAuthor(), "Not enough data");
+                    return;
                 }
                 break;
             default:
                 directMessageUser(pe.getAuthor(), "Invalid type");
+                return;
         }
+
+        if (!sells.containsKey(parts[0])) {
+            sells.put(parts[0], new LinkedList<>());
+        }
+        sells.get(parts[0]).add(toAdd);
+        directMessageUser(pe.getAuthor(), "Done");
+    }
+
+    // Method for creating a listing
+    public void respondWithList(GuildMessageReceivedEvent ev) {
+        String[] parts = ev.getMessage().getContentRaw().substring(6).split("\\s*:\\s*");
+
+        if (parts.length < 1) {
+            sendChannelMessage(ev.getChannel(), "You must specify a type");
+            return;
+        }
+
+        String ret = "";
+        try {
+            Iterator<Account> it = sells.get(parts[0]).iterator();
+            int numFound = 0;
+            while (it.hasNext() && numFound < 10) {
+                switch(parts[0]) {
+                    case "League of Legends":
+                        LeagueOfLegendsAccount act = (LeagueOfLegendsAccount) it.next();
+                        boolean good = true;
+                        for(int i=1; i<parts.length; i++) {
+                            String[] subparts = parts[i].split("\\s+");
+                            if(subparts.length != 2) {
+                                continue;
+                            } else {
+                                if(subparts[0].equals("rank") && act.getRank().equals(subparts[1])) {
+                                    continue;
+                                } else if (subparts[0].equals("level") && ("" + act.getLevel()).equals(subparts[1])) {
+                                    continue;
+                                }
+                                System.out.println(act.getLevel());
+                                good = false;
+                            }
+                        }
+
+                        if(good) {
+                            ret += act.toString() + "\n";
+                            numFound++;
+                        }
+                        break;
+                }
+            }
+        } catch (NullPointerException e) {
+            sendChannelMessage(ev.getChannel(), "No such type");
+            return;
+        }
+
+        if (ret.equals("")) {
+            ret += "No results";
+        }
+        sendChannelMessage(ev.getChannel(), ret);
     }
 	
 	// Utility methods for sending direct messages on a channel

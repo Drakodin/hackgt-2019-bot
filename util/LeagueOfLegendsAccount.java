@@ -21,14 +21,14 @@ public class LeagueOfLegendsAccount extends Account {
 	/**
 	 * @return the rank
 	 */
-	protected String getRank() {
+	public String getRank() {
 		return rank;
 	}
 
 	/**
 	 * @return the level
 	 */
-	protected int getLevel() {
+	public int getLevel() {
 		return level;
 	}
 }
