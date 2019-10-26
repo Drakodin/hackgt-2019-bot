@@ -1,5 +1,8 @@
 package botuser;
 
+import util.Account;
+import util.LeagueOfLegendsAccount;
+
 // Data Structures
 import java.util.List;
 import java.util.LinkedList;
@@ -24,20 +27,18 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
 
 public class BotListener extends ListenerAdapter {
-	private static Set<User> verifiedUsers = new HashSet<>();
-	
 	private static Map<String, Consumer<GuildMessageReceivedEvent>> guildMessageActions = new HashMap<>();
 	private static Map<String, Consumer<PrivateMessageReceivedEvent>> directMessageActions = new HashMap<>();
 
-    private static Map<String, List<Account>> = new HashMap<>();
+    private static Map<String, List<Account>> sells = new HashMap<>();
 	
 	public BotListener() {
 		guildMessageActions.put("!hello", (GuildMessageReceivedEvent ev) -> 
 			sendChannelMessage(ev.getChannel(), "Hello " + ev.getAuthor().getAsMention() + "!"));
 		
-		// Verify action for direct messages
-		directMessageActions.put("!verify", (PrivateMessageReceivedEvent pe) -> 
-			verifiedUsers.add(pe.getAuthor()));
+        // Logic for creating sells
+        directMessageActions.put("!sell .*", (PrivateMessageReceivedEvent pe) ->
+            createSell(pe));
 	}
 	
 	@Override
@@ -76,6 +77,38 @@ public class BotListener extends ListenerAdapter {
 		this.directMessageUser(newUser, "Hey there! I'm the bot! Here's some documentation before you continue!");
 		this.directMessageUser(newUser, new File("README.txt"));
 	}
+
+    // Method for creating a sell
+    public void createSell(PrivateMessageReceivedEvent pe) {
+        String[] parts = pe.getMessage().getContentRaw().substring(6).split("\\s*:\\s*");
+
+        // Check that we have a right initial length
+        if (parts.length < 4) {
+            directMessageUser(pe.getAuthor(), "You must specify type, username, password, and price");
+            return;
+        }
+
+        Account toAdd = null;
+        switch (parts[0]) {
+            case "League of Legends":
+                try {
+                    toAdd = new LeagueOfLegendsAccount(
+                        pe.getAuthor().getAsMention(),
+                        parts[1],
+                        parts[2],
+                        Double.parseDouble(parts[3]),
+                        parts[4],
+                        Integer.parseInt(parts[5]));
+                } catch (NumberFormatException e) {
+                    directMessageUser(pe.getAuthor(), "Invalid price or level");
+                } catch (IndexOutOfBoundsException e) {
+                    directMessageUser(pe.getAuthor(), "Not enough data");
+                }
+                break;
+            default:
+                directMessageUser(pe.getAuthor(), "Invalid type");
+        }
+    }
 	
 	// Utility methods for sending direct messages on a channel
 	public void sendChannelMessage(TextChannel chan, String rawMessage) {

@@ -43,3 +43,4 @@ public class Account {
 	protected Double getSalePrice() {
 		return salePrice;
 	}
+}
