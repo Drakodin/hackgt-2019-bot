@@ -13,13 +13,13 @@ import java.util.function.Consumer;
 import java.io.File;
 import java.io.IOException;
 
-import net.dv8tion.jda.core.entities.TextChannel;
 // Discord API
 import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 public class BotListener extends ListenerAdapter {
 	private static Set<User> verifiedUsers = new HashSet<>();
@@ -29,7 +29,7 @@ public class BotListener extends ListenerAdapter {
 	
 	public BotListener() {
 		guildMessageActions.put("!hello", (GuildMessageReceivedEvent ev) -> 
-			sendChannelMessage(ev.getChannel(), "Hello " + ev.getAuthor().getAsTag() + "!"));
+			sendChannelMessage(ev.getChannel(), "Hello " + ev.getAuthor().getAsMention() + "!"));
 		
 		// Verify action for direct messages
 		directMessageActions.put("!verify", (PrivateMessageReceivedEvent pe) -> 
@@ -97,7 +97,8 @@ public class BotListener extends ListenerAdapter {
 	}
 	
 	// Handler for the user sending a direct message to the bot
-	public void onDirectMessage(PrivateMessageReceivedEvent pe) {
+    @Override
+    public void onPrivateMessageReceived(PrivateMessageReceivedEvent pe) {
 		// Check all the actions
 		for (Map.Entry<String, Consumer<PrivateMessageReceivedEvent>> entry : directMessageActions.entrySet()) {
 			if(pe.getMessage().getContentRaw().matches(entry.getKey())) {
@@ -107,7 +108,8 @@ public class BotListener extends ListenerAdapter {
 	}
 	
 	// Handler for when a user joins the server
-	public void onUserJoin(GuildMemberJoinEvent e) throws IOException {
+    @Override
+    public void onGuildMemberJoin(GuildMemberJoinEvent e) {
 		User newUser = e.getUser();
 		
 		// Direct message the user
