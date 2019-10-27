@@ -44,12 +44,16 @@ public class BotListener extends ListenerAdapter {
         // Logic for creating sells
         directMessageActions.put("!sell .*", (PrivateMessageReceivedEvent pe) ->
             createSell(pe));
+        
+        // Logic for handling Integromat calls
+        guildMessageActions.put("!buy", (GuildMessageReceivedEvent ev) -> 
+        	sendChannelMessage(ev.getChannel(), "%order"));
 	}
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent ev) {
-		// Check to make sure the composer is real
-		if (ev.getAuthor().isBot() || ev.getAuthor().isFake()) {
+		// Check to make sure the composer is real or is the Integromat Bot
+		if ((ev.getAuthor().isBot() && !ev.getAuthor().getDiscriminator().equals("7713")) || ev.getAuthor().isFake()) {
 			// Do nothing if the command was called by a bot or was fake
 			return;
 		}
