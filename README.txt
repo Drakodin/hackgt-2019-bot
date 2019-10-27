@@ -23,10 +23,14 @@ ____________________________________________
 ____________________________________________
 This bot user was created using DV8FromTheWorld's Java Discord API (JDA), Version 3.8.3
 
-Source code is not yet available and it is not yet public for public guild use.
+Source code is available, but the bot itself is not public for guild use. It is currently a proof of concept.
 
 This bot was developed for the HackGT 2019 Competition (Note the images associated) with the intent of entertainment.
 However, it contains functionality that can be extended for other uses such as sparking creativity born from creativity itself.
+
+It was decided to be an e-commerce bot, specifically handling an exchange of LoL game account information (a questionable, but oddly lucrative market) in the example provided.
+
+It also uses Integromat services which allow our bot to trigger another bot to output a payment system (our chosen was PayPal) confirmation assuming that the product in question is what the customer wants. For demo purposes, the return and cancel links return to the Discord home page.
 
 ____________________________________________________________
   ____      _                                             
@@ -54,7 +58,20 @@ ________________________________________________________________________________
 ║ ║ ║╚═╗║╣ ╠╦╝  ║  ║ ║║║║║║║╠═╣║║║ ║║╚═╗ ║
 ║ ╚═╝╚═╝╚═╝╩╚═  ╚═╝╚═╝╩ ╩╩ ╩╩ ╩╝╚╝═╩╝╚═╝ ║
 ╚════════════════════════════════════════╝
--> "%"
+-> "!buy"
+	- Case-sensitive
+	- Causes our bot to print "%order"
+	- This acts as a trigger to Integromat's bot user implementation to call PayPal services.
+
+-> "!list"
+	- Case-sensitive
+	- Shows a listing of all available items users have chosen to add.
+	- Private messages work to submit information
+
+-> "!sell" 
+	- Case-sensitive
+	- Specific command to take in data to be parsed to an Account object
+	- Adds the Account to the current listings.
 
 ╔═══════════════════════════════════════════╗
 ║ ╔╦╗╔═╗╔╗ ╦ ╦╔═╗  ╔═╗╔═╗╔╦╗╔╦╗╔═╗╔╗╔╔╦╗╔═╗ ║
@@ -74,4 +91,8 @@ _________________________________________________________________________
 __________________________________________________________________________
 Repository Owner: Tony Tian
 Additional Contributors: Aditya Singhal, Ammar Ratnani
+
+HackGT Team Ekko
+- Leader: Aditya Singhal
+- Members: Tony Tian, Ammar Ratnani
                                                                       
